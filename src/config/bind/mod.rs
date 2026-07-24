@@ -20,7 +20,7 @@ pub fn set(device: &HidDevice, profile: Option<u8>, button: Button, binding: Bin
     bfr[5] = 0x03;
     bfr[7] = profile_id;
     bfr[8] = id_from_btn(button);
-    
+
     match binding {
         Binding::Key { kind } =>
             key::set(&mut bfr[10..], kind),

@@ -1,14 +1,13 @@
 use crate::args::KeyKind;
 
 pub fn set(bfr: &mut [u8], kind: KeyKind) {
-
     bfr[0] = 0x04;
     bfr[1] = 0x02;
 
     let (key, modifier) = match kind {
-        KeyKind::ScanCode { key, modifier } => (key, modifier),
-        KeyKind::KeyCode { key, modifier } => (key, modifier),
-        KeyKind::Code { key, modifier } => (key, modifier),
+        | KeyKind::ScanCode { key, modifier }
+        | KeyKind::KeyCode { key, modifier }
+        | KeyKind::Code { key, modifier } => (key, modifier),
     };
 
     if let Some(value) = modifier {

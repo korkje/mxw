@@ -46,7 +46,7 @@ pub fn get(device: &HidDevice, wired: bool) {
         (_, _) => {
             println!(
                 "[1:{:0>2X}, 6:{:0>2X}, 8:{:0>2X}] ({})",
-                bfr_r[1], bfr_r[6], bfr_r[8], "unknown status".red().bold(), 
+                bfr_r[1], bfr_r[6], bfr_r[8], "unknown status".red().bold(),
             );
         },
     }

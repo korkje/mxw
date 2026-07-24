@@ -1,7 +1,7 @@
 use clap::{ self, Parser, Subcommand, ArgEnum };
-use crate::lib::color::{ self, Color};
-use crate::lib::key::{ self, Key };
-use crate::lib::range::in_range;
+use crate::util::color::{ self, Color};
+use crate::util::key::{ self, Key };
+use crate::util::range::in_range;
 
 #[derive(Parser)]
 #[clap(
@@ -113,7 +113,7 @@ pub enum Config {
         stages: Vec<u16>,
     },
 
-    /// Set DPI stage colors 
+    /// Set DPI stage colors
     DPIColors {
         /// Profile id (1-3)
         #[clap(
@@ -295,7 +295,7 @@ pub enum Effect {
     },
 
     /// No effect, LED off
-    Off, 
+    Off,
 }
 
 #[derive(Clone, ArgEnum)]
@@ -317,29 +317,29 @@ pub enum Binding {
         #[clap(subcommand)]
         kind: KeyKind,
     },
-    
+
     /// Keyboard function
     #[clap(subcommand)]
     Keyboard(KeyboardFn),
-    
+
     /// Mouse function
     #[clap(subcommand)]
     Mouse(MouseFn),
-    
+
     /// DPI modifier
     #[clap(subcommand)]
     DPI(DPIFn),
-    
+
     /// (not implemented) Macro
     Macro,
-    
+
     /// Multimedia
     #[clap(subcommand)]
     Media(MediaFn),
-    
+
     /// (not implemented) Launch applications etc.
     Shortcut,
-    
+
     /// Do nothing
     None,
 }

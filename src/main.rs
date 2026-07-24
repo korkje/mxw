@@ -1,17 +1,17 @@
 pub mod args;
-pub mod lib;
+pub mod util;
 pub mod config;
 pub mod report;
 
 use clap::Parser;
 use hidapi::HidApi;
-use lib::none::None;
+use util::none::None;
 use args::{ Args, Kind, Report, Config };
 
 fn main() {
     // Parse the command line arguments
     let args = Args::parse();
-    
+
     // Interface with platform specific 'hidapi'
     let hid_api = HidApi::new().unwrap();
 
@@ -58,7 +58,7 @@ fn main() {
                 config::bind::set(&device, profile, button, binding),
 
             // mow config scroll <DIRECTION>
-            Config::Scroll { direction } => 
+            Config::Scroll { direction } =>
                 config::scroll::set(&device, direction),
 
             // mow config profile <ID>

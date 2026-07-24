@@ -7,7 +7,7 @@ pub fn get(device: &HidDevice, wired: bool) {
     if wired {
         bfr_w[3] = 0x02;
     }
-    
+
     bfr_w[4] = 0x03;
     bfr_w[6] = 0x81;
 

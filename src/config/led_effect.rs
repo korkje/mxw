@@ -8,7 +8,6 @@ const PROFILE_DEFAULT: u8 = 1;
 
 pub fn set(device: &HidDevice, profile: Option<u8>, effect: Effect) {
     let mut bfr = [0u8; 65];
-
     let profile_id = profile.unwrap_or(PROFILE_DEFAULT);
 
     bfr[3] = 0x02;
@@ -34,7 +33,7 @@ pub fn set(device: &HidDevice, profile: Option<u8>, effect: Effect) {
             bfr[4] = (colors.len() as u8) * 3 + 5;
             bfr[9] = 0x03;
             bfr[11] = rate_check(rate, 3);
-            
+
             for i in 0..6 {
                 if i >= colors.len() {
                     bfr[12 + 3 * i + 0] = 0x00;
@@ -78,7 +77,7 @@ pub fn set(device: &HidDevice, profile: Option<u8>, effect: Effect) {
             bfr[4] = (colors.len() as u8) * 3 + 5;
             bfr[9] = 0x07;
             bfr[11] = rate_check(rate, 7);
-            
+
             for i in 0..2 {
                 if i >= colors.len() {
                     bfr[12 + 3 * i + 0] = 0x00;
@@ -111,7 +110,7 @@ pub fn set(device: &HidDevice, profile: Option<u8>, effect: Effect) {
 const RATE_DEFAULT: u8 = 40;
 
 fn rate_check(rate: Option<u8>, effect_id: u8) -> u8 {
-    
+
     let rate_unwrapped = rate.unwrap_or(RATE_DEFAULT);
 
     let rate_checked = match rate_unwrapped {

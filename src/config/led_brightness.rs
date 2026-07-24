@@ -9,7 +9,6 @@ pub fn set(device: &HidDevice, wired: u8, wireless: Option<u8>) {
     bfr[5] = 0x02;
     bfr[6] = 0x02;
     bfr[7] = 0x01;
-
     bfr[8] = wired;
 
     device.send_feature_report(&bfr).unwrap();
