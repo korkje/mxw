@@ -5,11 +5,11 @@ pub mod dpi;
 pub mod keyboard;
 
 use colored::Colorize;
-use hidapi::HidDevice;
+use crate::util::devices::Device;
 use crate::args::{ Button, Binding };
 use std::{ thread, time::Duration };
 
-pub fn set(device: &HidDevice, profile: u8, button: Button, binding: Binding) {
+pub fn set(device: &Device, profile: u8, button: Button, binding: Binding) {
     let mut bfr = [0u8; 65];
 
     bfr[3] = 0x02;
@@ -43,7 +43,7 @@ pub fn set(device: &HidDevice, profile: u8, button: Button, binding: Binding) {
     set_and_check(device, &bfr, 0, false);
 }
 
-pub fn set_and_check(device: &HidDevice, bfr_w: &[u8], depth: u8, waiting: bool) {
+pub fn set_and_check(device: &Device, bfr_w: &[u8], depth: u8, waiting: bool) {
     if depth < 3 {
         if waiting {
             thread::sleep(Duration::from_millis(100));

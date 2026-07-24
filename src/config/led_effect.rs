@@ -1,10 +1,10 @@
 use std::process;
 
 use colored::Colorize;
-use hidapi::HidDevice;
+use crate::util::devices::Device;
 use crate::args::Effect;
 
-pub fn set(device: &HidDevice, profile: u8, effect: Effect) {
+pub fn set(device: &Device, profile: u8, effect: Effect) {
     let mut bfr = [0u8; 65];
 
     bfr[3] = 0x02;

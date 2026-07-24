@@ -23,6 +23,20 @@ Then replug the mouse (or reboot) for the rule to take effect.
 ## Usage
 Run `mxw --help` for usage information.
 
+### Shell completions
+`mxw` can generate completion scripts for `bash`, `zsh`, `fish`, `elvish`, and `powershell`. Pipe the output wherever your shell looks for completions, e.g.:
+
+```sh
+# bash
+mxw completions bash | sudo tee /etc/bash_completion.d/mxw > /dev/null
+
+# zsh (somewhere on your $fpath)
+mxw completions zsh > ~/.zfunc/_mxw
+
+# fish
+mxw completions fish > ~/.config/fish/completions/mxw.fish
+```
+
 ## Goal
 The goal of this project is to reverse engineer the communication between Glorious Core and the Model O/O-/D/D- Wireless mice, so the mice can be used (more or less feature complete) on all platforms.
 

@@ -1,7 +1,7 @@
-use hidapi::HidDevice;
+use crate::util::devices::Device;
 use std::{ thread, time::Duration };
 
-pub fn get(device: &HidDevice, wired: bool) {
+pub fn get(device: &Device, wired: bool) {
     let mut bfr_w = [0u8; 65];
 
     if wired {

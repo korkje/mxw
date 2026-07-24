@@ -1,7 +1,7 @@
-use hidapi::HidDevice;
+use crate::util::devices::Device;
 use crate::util::color::Color;
 
-pub fn set(device: &HidDevice, profile: u8, colors: Vec<Color>) {
+pub fn set(device: &Device, profile: u8, colors: Vec<Color>) {
     let mut bfr = [0u8; 65];
 
     bfr[3] = 0x02;

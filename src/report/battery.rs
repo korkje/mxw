@@ -1,8 +1,8 @@
 use colored::Colorize;
-use hidapi::HidDevice;
+use crate::util::devices::Device;
 use std::{ thread, time::{ Duration } };
 
-pub fn get(device: &HidDevice, wired: bool) {
+pub fn get(device: &Device, wired: bool) {
     let mut bfr_w = [0u8; 65];
 
     bfr_w[3] = 0x02;
@@ -24,7 +24,7 @@ pub fn get(device: &HidDevice, wired: bool) {
     }
 
     let mut status = [0xA1, 0xA4, 0xA2, 0xA0, 0xA3]
-        .iter().position(|&s| { s == bfr_r[1] }).unwrap();
+        .iter().position(|&s| { s == bfr_r[1] }).unwrap_or(usize::MAX);
 
     if bfr_r[6] != 0x83 {
         status = 2;

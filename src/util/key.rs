@@ -63,6 +63,7 @@ pub fn parse_code_mod(str: &str) -> Result<Key, String> {
     }
 }
 
+#[derive(Clone)]
 pub struct Key {
     pub scan_code: u8,
     pub key_code: u8,

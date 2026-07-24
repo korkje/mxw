@@ -1,4 +1,48 @@
-use hidapi::{HidApi, HidDevice};
+use hidapi::{HidApi, HidDevice, HidResult};
+use colored::Colorize;
+
+pub enum Device {
+    Real(HidDevice),
+    Dry,
+}
+
+impl Device {
+    pub fn send_feature_report(&self, data: &[u8]) -> HidResult<()> {
+        match self {
+            Device::Real(device) => device.send_feature_report(data),
+            Device::Dry => {
+                println!("[dry] send_feature_report ({} bytes):", data.len());
+                hexdump(data);
+                Ok(())
+            }
+        }
+    }
+
+    pub fn get_feature_report(&self, buf: &mut [u8]) -> HidResult<usize> {
+        match self {
+            Device::Real(device) => device.get_feature_report(buf),
+            Device::Dry => {
+                println!("[dry] get_feature_report ({} bytes): returning zeroed buffer", buf.len());
+                Ok(buf.len())
+            }
+        }
+    }
+}
+
+fn hexdump(data: &[u8]) {
+    for (row, chunk) in data.chunks(16).enumerate() {
+        let mut hex = String::new();
+        for (i, byte) in chunk.iter().enumerate() {
+            if i == 8 {
+                hex.push(' ');
+            }
+            let cell = format!("{:02X}", byte);
+            let cell = if *byte == 0 { cell.dimmed() } else { cell.cyan().bold() };
+            hex.push_str(&format!("{} ", cell));
+        }
+        println!("  {}  {}", format!("{:04X}", row * 16).dimmed(), hex.trim_end());
+    }
+}
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Model {
@@ -7,6 +51,13 @@ pub struct Model {
     pub pid_wired: u16,
     pub pid_wireless: u16,
 }
+
+pub const DRY_MODEL: Model = Model {
+    name: "Dry run (no device)",
+    vid: 0x0000,
+    pid_wired: 0x0000,
+    pid_wireless: 0x0000,
+};
 
 pub const SUPPORTED_MICE: &[Model] = &[
     Model {
@@ -18,8 +69,8 @@ pub const SUPPORTED_MICE: &[Model] = &[
     Model {
         name: "Model O- Wireless",
         vid: 0x258A,
-        pid_wired: 0x2024,
-        pid_wireless: 0x2013,
+        pid_wired: 0x2013,
+        pid_wireless: 0x2024,
     },
     Model {
         name: "Model D Wireless",
@@ -56,12 +107,13 @@ pub fn find_device(hid_api: &HidApi) -> Option<(HidDevice, Model, bool)> {
 }
 
 pub fn supported_mice_list() -> String {
+    let width = SUPPORTED_MICE.iter().map(|m| m.name.len()).max().unwrap_or(0);
     SUPPORTED_MICE
         .iter()
         .map(|m| format!(
-            "{} (vendor: 0x{:04X}, wired: 0x{:04X}, wireless: 0x{:04X})",
-            m.name, m.vid, m.pid_wired, m.pid_wireless
+            "  {:<width$}  VID 0x{:04X}, PID 0x{:04X} (0x{:04X} wired)",
+            m.name, m.vid, m.pid_wireless, m.pid_wired, width = width
         ))
         .collect::<Vec<_>>()
-        .join(", ")
+        .join("\n")
 }

@@ -1,6 +1,6 @@
-use hidapi::HidDevice;
+use crate::util::devices::Device;
 
-pub fn set(device: &HidDevice, mm: u8) {
+pub fn set(device: &Device, mm: u8) {
     let mut bfr = [0u8; 65];
 
     bfr[3] = 0x02;

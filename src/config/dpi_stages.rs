@@ -1,6 +1,6 @@
-use hidapi::HidDevice;
+use crate::util::devices::Device;
 
-pub fn set(device: &HidDevice, profile: u8, stages: Vec<u16>) {
+pub fn set(device: &Device, profile: u8, stages: Vec<u16>) {
     let mut bfr = [0u8; 65];
 
     bfr[3] = 0x02;

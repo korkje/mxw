@@ -1,7 +1,7 @@
-use hidapi::HidDevice;
+use crate::util::devices::Device;
 use std::{ thread, time::{ Duration } };
 
-pub fn set(device: &HidDevice, wired: u8, wireless: Option<u8>) {
+pub fn set(device: &Device, wired: u8, wireless: Option<u8>) {
     let mut bfr = [0u8; 65];
 
     bfr[3] = 0x02;

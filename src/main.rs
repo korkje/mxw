@@ -3,7 +3,7 @@ pub mod util;
 pub mod config;
 pub mod report;
 
-use clap::Parser;
+use clap::{ Parser, CommandFactory };
 use hidapi::HidApi;
 use util::none::None;
 use util::devices;
@@ -13,16 +13,32 @@ fn main() {
     // Parse the command line arguments
     let args = Args::parse();
 
-    // Interface with platform specific 'hidapi'
-    let hid_api = HidApi::new().unwrap();
+    // Shell completions don't need a device, so handle them before connecting
+    if let Kind::Completions { shell } = &args.kind {
+        let mut cmd = Args::command();
+        let name = cmd.get_name().to_string();
+        clap_complete::generate(*shell, &mut cmd, name, &mut std::io::stdout());
+        return;
+    }
 
-    // Try to find a matching Glorious device
-    let not_found = format!(
-        "No matching device found! Supported devices: {}",
-        devices::supported_mice_list()
-    );
-    let (device, mouse_model, wired) = devices::find_device(&hid_api)
-        .none(&not_found);
+    // In dry-run mode, don't touch hardware: use a stub device and assume a
+    // default model so byte-building can be exercised without a mouse connected.
+    let (device, mouse_model, wired) = if args.dry {
+        (devices::Device::Dry, devices::DRY_MODEL, false)
+    } else {
+        // Interface with platform specific 'hidapi'
+        let hid_api = HidApi::new().unwrap();
+
+        // Try to find a matching Glorious device
+        let not_found = format!(
+            "No matching device found!\n\nSupported devices:\n{}",
+            devices::supported_mice_list()
+        );
+        let (device, mouse_model, wired) = devices::find_device(&hid_api)
+            .none(&not_found);
+
+        (devices::Device::Real(device), mouse_model, wired)
+    };
 
     // Act upon command line arguments
     match args.kind {
@@ -91,5 +107,8 @@ fn main() {
             Config::DPIColors { profile, colors } =>
                 config::dpi_colors::set(&device, profile, colors),
         },
+
+        // Handled before the device lookup above
+        Kind::Completions { .. } => unreachable!(),
     }
 }
