@@ -9,16 +9,13 @@ use hidapi::HidDevice;
 use crate::args::{ Button, Binding };
 use std::{ thread, time::Duration };
 
-const PROFILE_DEFAULT: u8 = 1;
-
-pub fn set(device: &HidDevice, profile: Option<u8>, button: Button, binding: Binding) {
+pub fn set(device: &HidDevice, profile: u8, button: Button, binding: Binding) {
     let mut bfr = [0u8; 65];
-    let profile_id = profile.unwrap_or(PROFILE_DEFAULT);
 
     bfr[3] = 0x02;
     bfr[4] = 0x09;
     bfr[5] = 0x03;
-    bfr[7] = profile_id;
+    bfr[7] = profile;
     bfr[8] = id_from_btn(button);
 
     match binding {

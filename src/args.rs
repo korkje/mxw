@@ -55,10 +55,9 @@ pub enum Config {
         /// Profile id (1-3)
         #[clap(
             short, long,
-            help = "[default: 1]",
             possible_values(["1", "2", "3"]),
         )]
-        profile: Option<u8>,
+        profile: u8,
 
         #[clap(subcommand)]
         effect: Effect,
@@ -85,10 +84,9 @@ pub enum Config {
         /// Profile id (1-3)
         #[clap(
             short, long,
-            help = "[default: 1]",
             possible_values(["1", "2", "3"]),
         )]
-        profile: Option<u8>,
+        profile: u8,
 
         #[clap(possible_values(["1", "2", "3", "4"]))]
         id: u8,
@@ -99,10 +97,9 @@ pub enum Config {
         /// Profile id (1-3)
         #[clap(
             short, long,
-            help = "[default: 1]",
             possible_values(["1", "2", "3"])
         )]
-        profile: Option<u8>,
+        profile: u8,
 
         #[clap(
             name = "stage",
@@ -118,10 +115,9 @@ pub enum Config {
         /// Profile id (1-3)
         #[clap(
             short, long,
-            help = "[default: 1]",
             possible_values(["1", "2", "3"])
         )]
-        profile: Option<u8>,
+        profile: u8,
 
         #[clap(
             name = "COLOR",
@@ -149,10 +145,9 @@ pub enum Config {
         /// Profile id (1-3)
         #[clap(
             short, long,
-            help = "[default: 1]",
             possible_values(["1", "2", "3"]),
         )]
-        profile: Option<u8>,
+        profile: u8,
 
         #[clap(validator = in_range(&(0..=16)))]
         ms: u8,
@@ -163,10 +158,9 @@ pub enum Config {
         /// Profile id (1-3)
         #[clap(
             short, long,
-            help = "[default: 1]",
             possible_values(["1", "2", "3"]),
         )]
-        profile: Option<u8>,
+        profile: u8,
 
         /// Mouse button
         #[clap(arg_enum)]

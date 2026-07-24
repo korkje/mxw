@@ -4,15 +4,12 @@ use colored::Colorize;
 use hidapi::HidDevice;
 use crate::args::Effect;
 
-const PROFILE_DEFAULT: u8 = 1;
-
-pub fn set(device: &HidDevice, profile: Option<u8>, effect: Effect) {
+pub fn set(device: &HidDevice, profile: u8, effect: Effect) {
     let mut bfr = [0u8; 65];
-    let profile_id = profile.unwrap_or(PROFILE_DEFAULT);
 
     bfr[3] = 0x02;
     bfr[5] = 0x02;
-    bfr[7] = profile_id;
+    bfr[7] = profile;
     bfr[8] = 0xFF;
 
     match effect {

@@ -8,14 +8,14 @@ pub fn set(device: &HidDevice, direction: ScrollDirection) {
             ScrollDirection::Default => {
                 // Up => Up
                 bind::set(
-                    device, Some(i),
+                    device, i,
                     Button::ScrollUp,
                     Binding::Mouse(MouseFn::ScrollUp)
                 );
 
                 // Down => Down
                 bind::set(
-                    device, Some(i),
+                    device, i,
                     Button::ScrollDown,
                     Binding::Mouse(MouseFn::ScrollDown)
                 );
@@ -24,14 +24,14 @@ pub fn set(device: &HidDevice, direction: ScrollDirection) {
             ScrollDirection::Invert => {
                 // Up => Down
                 bind::set(
-                    device, Some(i),
+                    device, i,
                     Button::ScrollUp,
                     Binding::Mouse(MouseFn::ScrollDown)
                 );
 
                 // Down => Up
                 bind::set(
-                    device, Some(i),
+                    device, i,
                     Button::ScrollDown,
                     Binding::Mouse(MouseFn::ScrollUp)
                 );
