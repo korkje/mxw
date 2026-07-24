@@ -5,11 +5,11 @@ Cross platform CLI for configuring Glorious Model O/O-/D/D- Wireless.
 It is a Rust (Cargo) project, install Rust from [rustup.rs](https://rustup.rs) and run `cargo install mxw`.
 
 ### Linux
-**Build dependencies:** `mxw` builds `hidapi` from source, which links against `libusb-1.0`. You need its development headers installed, otherwise the build fails with `Unable to find libusb-1.0`:
+**Build dependencies:** `mxw` builds `hidapi` from source, which uses the Linux `hidraw` backend and links against `libudev`. You need its development headers installed, otherwise the build fails with `Unable to find libudev`:
 
-- Fedora / RHEL: `sudo dnf install libusb1-devel`
-- Debian / Ubuntu: `sudo apt install libusb-1.0-0-dev`
-- Arch: `sudo pacman -S libusb`
+- Fedora / RHEL: `sudo dnf install systemd-devel`
+- Debian / Ubuntu: `sudo apt install libudev-dev`
+- Arch: already provided by `systemd` (part of a base install)
 
 **Permissions (udev):** by default, accessing the mouse requires root, so you'd have to run every command with `sudo`. To use `mxw` as a normal user, install the included [`69-mxw.rules`](69-mxw.rules), which grants the logged-in user access to all supported devices:
 
