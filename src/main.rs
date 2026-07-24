@@ -83,7 +83,7 @@ fn main() {
 
             // mow config lift-off <MM>
             Config::LiftOff { mm } =>
-                config::polling_rate::set(&device, mm),
+                config::lift_off::set(&device, mm),
 
             // mow config debounce <MS>
             Config::Debounce { profile, ms } =>
