@@ -1,8 +1,30 @@
-# Model O Wireless (mow)
-Cross platform CLI for configuring Glorious Model O Wireless.
+# Model O/O-/D/D- Wireless (mxw)
+Cross platform CLI for configuring Glorious Model O/O-/D/D- Wireless.
+
+## Installation
+It is a Rust (Cargo) project, install Rust from [rustup.rs](https://rustup.rs) and run `cargo install mxw`.
+
+### Linux
+**Build dependencies:** `mxw` builds `hidapi` from source, which links against `libusb-1.0`. You need its development headers installed, otherwise the build fails with `Unable to find libusb-1.0`:
+
+- Fedora / RHEL: `sudo dnf install libusb1-devel`
+- Debian / Ubuntu: `sudo apt install libusb-1.0-0-dev`
+- Arch: `sudo pacman -S libusb`
+
+**Permissions (udev):** by default, accessing the mouse requires root, so you'd have to run every command with `sudo`. To use `mxw` as a normal user, install the included [`69-mxw.rules`](69-mxw.rules), which grants the logged-in user access to all supported devices:
+
+```sh
+sudo cp 69-mxw.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules
+```
+
+Then replug the mouse (or reboot) for the rule to take effect.
+
+## Usage
+Run `mxw --help` for usage information.
 
 ## Goal
-The goal of this project is to reverse engineer the communication between Glorious Core and the Model O Wireless mouse, so the mouse can be used (more or less feature complete) on all platforms.
+The goal of this project is to reverse engineer the communication between Glorious Core and the Model O/O-/D/D- Wireless mice, so the mice can be used (more or less feature complete) on all platforms.
 
 Another goal is just (re-)learning Rust, so if any Rust afficionados come across this project, feel free to tell me which parts of the code suck the most.
 
@@ -58,18 +80,8 @@ As of now, I've found that macOS does not register "Single key" or "Multimedia" 
 
 Another issue is that the `hidapi` abstraction that I'm currently using is a bit lacking in functionality, especially on Linux/macOS. That's not the fault of the author though, but rather the respective backends that are used. For instance, `libusb` (Linux) does not seem to "know about" usage pages and/or usage, and on macOS (maybe Linux as well) reading from a HID device via interrupt doesn't yield anything. I found this out when trying to mash together a daemon for this project, and had to abandon that part for now. To get anywhere I would need a better way to do cross platform HID comms, so if anyone has suggestions towards that, I'm all ears.
 
-## Installation
-It is a Rust (Cargo) project, so just run `cargo build --release` in the root folder, create a symlink somewhere in your `PATH`, and you should be good to go. The CLI has built in `--help`, so use that to understand usage.
-
-I'll look into making it more easily available at some point, maybe through `brew`, `apt-get` etc., though I might add support for more devices and have to change the project's name before then.
-
-### Arch (thanks, [crstian19](https://github.com/crstian19))
-On Arch linux, you can install this from [AUR](https://aur.archlinux.org) with `paru -S mow-git`.
-
 ## Misc
-With some minor alteration, my findings probably also apply to Model D as well as reduced size versions of both devices, but I don't have access to those myself, so I will not be able to extend support at least for now.
-
-I might at some point compile and upload a detailed writeup describing the protocol in it's entirety, but until that time this repo should (hopefully) be readable enough for others wanting to look into how it works. There are some bits of code that look like utter nonsense (such as the `set_and_check` function), that's because I've tried to keep everything pretty much functionally identical to the Glorious Core source. Anyway, let me know and I will try my best to explain, and I'll provide the garbled mess that is the Glorious Core source for anyone who wants it.
+There are some bits of code that look like utter nonsense (such as the `set_and_check` function), that's because I've tried to keep everything pretty much functionally identical to the Glorious Core source. Anyway, let me know and I will try my best to explain, and I'll provide the garbled mess that is the Glorious Core source for anyone who wants it.
 
 ## Safety
 Should you be so unlucky as to somehow brick your device (as I have done myself repeatedly while working on this project), there is the option of factory resetting by pressing down both left and right mouse buttons and the scroll wheel, and hold for five seconds while the device flashes green.

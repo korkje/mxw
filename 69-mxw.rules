@@ -1,0 +1,23 @@
+# Glorious Model O/O-/D/D- Wireless — grant the logged-in user access to the
+# mouse's hidraw device so mxw can run without root.
+#
+# Install:
+#   sudo cp 69-mxw.rules /etc/udev/rules.d/
+#   sudo udevadm control --reload-rules
+# Then replug the mouse (or reboot).
+
+# Model O Wireless
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="2011", MODE="0660", TAG+="uaccess"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="2022", MODE="0660", TAG+="uaccess"
+
+# Model O- Wireless
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="2024", MODE="0660", TAG+="uaccess"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="2013", MODE="0660", TAG+="uaccess"
+
+# Model D Wireless
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="2012", MODE="0660", TAG+="uaccess"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="2023", MODE="0660", TAG+="uaccess"
+
+# Model D- Wireless
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="2014", MODE="0660", TAG+="uaccess"
+KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{idVendor}=="258a", ATTRS{idProduct}=="2025", MODE="0660", TAG+="uaccess"

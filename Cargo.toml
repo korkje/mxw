@@ -1,18 +1,16 @@
 [package]
-name = "mow"
+name = "mxw"
 authors = ["Ola Næss Kaldestad <mail@okal.no>"]
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 description = """
 
-Cross platform CLI tool for Glorious' Model O Wireless.
+Cross platform CLI tool for Glorious' Model O/O-/D/D- Wireless.
 
 Reverse engineered using USB packet logs sniffed with
 WireShark and USBPcap, as well as decompiled Windows
 software (Glorious Core).
 """
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 clap = { version = "3.1.5", features = ["derive"] }

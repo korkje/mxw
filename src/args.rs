@@ -38,6 +38,9 @@ pub enum Report {
     /// Battery percentage (if available)
     Battery,
 
+    /// Device information
+    Device,
+
     /// Device firmware version
     Firmware,
 }
