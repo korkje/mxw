@@ -9,5 +9,5 @@ pub fn set(device: &Device, profile: u8, ms: u8) {
     bfr[7] = profile;
     bfr[8] = ms;
 
-    device.send_feature_report(&bfr).unwrap();
+    device.send_feature_report(&bfr);
 }

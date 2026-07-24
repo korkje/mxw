@@ -11,12 +11,12 @@ pub fn set(device: &Device, wired: u8, wireless: Option<u8>) {
     bfr[7] = 0x01;
     bfr[8] = wired;
 
-    device.send_feature_report(&bfr).unwrap();
+    device.send_feature_report(&bfr);
 
     thread::sleep(Duration::from_millis(30));
 
     bfr[7] = 0x00;
     bfr[8] = wireless.unwrap_or(wired);
 
-    device.send_feature_report(&bfr).unwrap();
+    device.send_feature_report(&bfr);
 }

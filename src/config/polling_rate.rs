@@ -8,5 +8,5 @@ pub fn set(device: &Device, ms: u8) {
     bfr[5] = 0x01;
     bfr[7] = ms;
 
-    device.send_feature_report(&bfr).unwrap();
+    device.send_feature_report(&bfr);
 }

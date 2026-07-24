@@ -11,10 +11,10 @@ pub fn set(device: &Device, profile: u8, colors: Vec<Color>) {
     bfr[7] = profile;
 
     for i in 0..colors.len() {
-        bfr[8 + 3 * i + 0] = colors[i].red;
+        bfr[8 + 3 * i] = colors[i].red;
         bfr[8 + 3 * i + 1] = colors[i].green;
         bfr[8 + 3 * i + 2] = colors[i].blue;
     }
 
-    device.send_feature_report(&bfr).unwrap();
+    device.send_feature_report(&bfr);
 }

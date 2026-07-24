@@ -13,11 +13,11 @@ pub fn set(device: &Device, profile: u8, stages: Vec<u16>) {
     for i in 0..stages.len() {
         let [first, second] = stages[i].to_be_bytes();
 
-        bfr[9 + (4 * i) + 0] = first;
+        bfr[9 + (4 * i)] = first;
         bfr[9 + (4 * i) + 1] = second;
         bfr[9 + (4 * i) + 2] = first;
         bfr[9 + (4 * i) + 3] = second;
     }
 
-    device.send_feature_report(&bfr).unwrap();
+    device.send_feature_report(&bfr);
 }

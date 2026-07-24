@@ -22,5 +22,5 @@ pub fn set(device: &Device, minutes: u8, seconds: Option<u8>) {
         buffer[8] = 0xFF;
     }
 
-    device.send_feature_report(&buffer).unwrap();
+    device.send_feature_report(&buffer);
 }

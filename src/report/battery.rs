@@ -9,13 +9,13 @@ pub fn get(device: &Device, wired: bool) {
     bfr_w[4] = 0x02;
     bfr_w[6] = 0x83;
 
-    device.send_feature_report(&bfr_w).unwrap();
+    device.send_feature_report(&bfr_w);
 
     thread::sleep(Duration::from_millis(50));
 
     let mut bfr_r = [0u8; 65];
 
-    device.get_feature_report(&mut bfr_r).unwrap();
+    device.get_feature_report(&mut bfr_r);
 
     let mut percentage = bfr_r[8];
 

@@ -39,7 +39,7 @@ pub fn set(device: &Device, profile: u8, button: Button, binding: Binding) {
         _ => println!("(not implemented)"),
     }
 
-    device.send_feature_report(&bfr).unwrap();
+    device.send_feature_report(&bfr);
     set_and_check(device, &bfr, 0, false);
 }
 
@@ -52,22 +52,22 @@ pub fn set_and_check(device: &Device, bfr_w: &[u8], depth: u8, waiting: bool) {
         else {
             thread::sleep(Duration::from_millis(100));
             let mut bfr_r = [0u8; 55];
-            device.get_feature_report(&mut bfr_r).unwrap();
+            device.get_feature_report(&mut bfr_r);
             thread::sleep(Duration::from_millis(40));
 
             match bfr_r[0] {
                 0xA2 => {
-                    device.send_feature_report(bfr_w).unwrap();
+                    device.send_feature_report(bfr_w);
                     set_and_check(device, bfr_w, depth + 1, false)
                 },
                 0xA0 => set_and_check(device, bfr_w, depth + 1, false),
                 0xA4 => set_and_check(device, bfr_w, depth + 1, true),
-                _ => return
+                _ => {}
             }
         }
     }
     else {
-        println!("{}: {}", "Error".bold().red(), "Failed setting key binding!");
+        println!("{}: Failed setting key binding!", "Error".bold().red());
     }
 }
 
