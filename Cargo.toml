@@ -3,6 +3,9 @@ name = "mxw"
 authors = ["Ola Næss Kaldestad <mail@okal.no>"]
 version = "0.1.1"
 edition = "2021"
+license = "MIT"
+repository = "https://github.com/korkje/mxw"
+readme = "README.md"
 description = """
 
 Cross platform CLI tool for Glorious' Model O/O-/D/D- Wireless.
