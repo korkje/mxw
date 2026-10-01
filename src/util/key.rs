@@ -89,7 +89,7 @@ struct _Key {
     modifier: Option<u8>,
 }
 
-static KEYS: [_Key; 90] = [
+static KEYS: [_Key; 113] = [
     _Key {
         scan_code: 4,
         key_code: 65,
@@ -586,6 +586,144 @@ static KEYS: [_Key; 90] = [
         scan_code: 87,
         key_code: 107,
         code: "NumpadAdd",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 88,
+        key_code: 13,
+        code: "NumpadEnter",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 89,
+        key_code: 97,
+        code: "Numpad1",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 90,
+        key_code: 98,
+        code: "Numpad2",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 91,
+        key_code: 99,
+        code: "Numpad3",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 92,
+        key_code: 100,
+        code: "Numpad4",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 93,
+        key_code: 101,
+        code: "Numpad5",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 94,
+        key_code: 102,
+        code: "Numpad6",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 95,
+        key_code: 103,
+        code: "Numpad7",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 96,
+        key_code: 104,
+        code: "Numpad8",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 97,
+        key_code: 105,
+        code: "Numpad9",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 98,
+        key_code: 96,
+        code: "Numpad0",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 104,
+        key_code: 124,
+        code: "F13",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 105,
+        key_code: 125,
+        code: "F14",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 106,
+        key_code: 126,
+        code: "F15",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 107,
+        key_code: 127,
+        code: "F16",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 108,
+        key_code: 128,
+        code: "F17",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 109,
+        key_code: 129,
+        code: "F18",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 110,
+        key_code: 130,
+        code: "F19",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 111,
+        key_code: 131,
+        code: "F20",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 112,
+        key_code: 132,
+        code: "F21",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 113,
+        key_code: 133,
+        code: "F22",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 114,
+        key_code: 134,
+        code: "F23",
+        modifier: None,
+    },
+    _Key {
+        scan_code: 115,
+        key_code: 135,
+        code: "F24",
         modifier: None,
     },
     _Key {
