@@ -50,6 +50,9 @@ pub enum Kind {
         #[arg(value_enum)]
         shell: Shell,
     },
+
+    /// List all supported keys with their scan codes, key codes and codes
+    Keys,
 }
 
 #[derive(Subcommand)]

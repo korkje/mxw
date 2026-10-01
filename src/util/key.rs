@@ -63,6 +63,17 @@ pub fn parse_code_mod(str: &str) -> Result<Key, String> {
     }
 }
 
+pub fn list() { 
+    println!("{:<14} {:>9} {:>8}  {}", "Code", "ScanCode", "KeyCode", "Modifier"); 
+    for key in KEYS.iter() { 
+        let modifier = match key.modifier { 
+            Some(value) => format!("0x{:02X}", value), 
+            None => String::from("-"), 
+        }; 
+        println!("{:<14} {:>9} {:>8}  {}", key.code, key.scan_code, key.key_code, modifier); 
+    } 
+} 
+
 #[derive(Clone)]
 pub struct Key {
     pub scan_code: u8,

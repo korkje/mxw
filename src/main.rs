@@ -19,6 +19,10 @@ fn main() {
         return;
     }
 
+    if let Kind::Keys = args.kind {
+        util::key::list();
+        return;
+    }
     let (device, mouse_model, wired) = if args.dry {
         (devices::Device::Dry, devices::DRY_MODEL, false)
     } else {
@@ -51,6 +55,6 @@ fn main() {
             Config::DPIStages { profile, stages } => config::dpi_stages::set(&device, profile, stages),
             Config::DPIColors { profile, colors } => config::dpi_colors::set(&device, profile, colors),
         },
-        Kind::Completions { .. } => unreachable!(),
+        Kind::Keys | Kind::Completions { .. } => unreachable!(),
     }
 }
